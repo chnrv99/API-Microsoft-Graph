@@ -1,0 +1,26 @@
+{
+  "name": "api-microsoft",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chnrv99/API-Microsoft.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chnrv99/API-Microsoft/issues"
+  },
+  "homepage": "https://github.com/chnrv99/API-Microsoft#readme",
+  "dependencies": {
+    "@azure/identity": "^3.2.3",
+    "@azure/msal-browser": "^2.37.1",
+    "@microsoft/microsoft-graph-client": "^3.0.5",
+    "isomorphic-fetch": "^3.0.0",
+    "readline-sync": "^1.4.10"
+  }
+}
