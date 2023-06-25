@@ -18,7 +18,8 @@ async function main() {
     'Display access token',
     'List my inbox',
     'Send mail',
-    'Make a Graph call'
+    'Create a folder',
+    'Move a message to test folder'
   ];
 
   while (choice != -1) {
@@ -41,10 +42,13 @@ async function main() {
             // Send an email message
             await sendMailAsync();
             break;
-            case 3:
+        case 3:
                 // Run any Graph code
-        await makeGraphCallAsync();
-        break;
+            await createNewFolderAsync();
+            break;
+        case 4:
+            await moveMessageAsync();
+            break;
       default:
           console.log('Invalid choice! Please try again.');
         }
@@ -93,6 +97,7 @@ function initializeGraph(settings) {
 
     // Output each message's details
     for (const message of messages) {
+      console.log(`Id: ${message.id ?? 'error in Id fetching'}`)
       console.log(`Message: ${message.subject ?? 'NO SUBJECT'}`);
       console.log(`  From: ${message.from?.emailAddress?.name ?? 'UNKNOWN'}`);
       console.log(`  Status: ${message.isRead ? 'Read' : 'Unread'}`);
@@ -128,7 +133,27 @@ function initializeGraph(settings) {
     }
   }
   
-  async function makeGraphCallAsync() {
+  async function createNewFolderAsync() {
     // TODO
+    try {
+        // const result = graphHelper.createNewFolderAsync()
+        const result = await graphHelper.createNewFolderAsync();
+        console.log('Done')
+        console.log(result)
+    }
+    catch(err){
+        console.log(err)
+    }
+  }
+
+  async function moveMessageAsync() {
+    try{
+        const result = await graphHelper.moveMessageAsync();
+        console.log('Done bro')
+        console.log(result)
+    }
+    catch(err){
+        console.log(err)
+    }
   }
  

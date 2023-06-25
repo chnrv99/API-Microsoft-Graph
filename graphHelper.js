@@ -100,10 +100,77 @@ async function getInboxAsync() {
     }
   
     return _userClient.api('/me/mailFolders/inbox/messages')
-      .select(['from', 'isRead', 'receivedDateTime', 'subject'])
+      .select(['id','from', 'isRead', 'receivedDateTime', 'subject'])
       .top(25)
       .orderby('receivedDateTime DESC')
       .get();
   }
 module.exports.getInboxAsync = getInboxAsync;
 module.exports.initializeGraphForUserAuth = initializeGraphForUserAuth;
+
+// This function serves as a playground for testing Graph snippets
+// or other code
+async function createNewFolderAsync() {
+    // INSERT YOUR CODE HERE
+    // for creating a new folder
+    // const authProvider = new authProviders.TokenCredentialAuthenticationProvider(
+    //     _deviceCodeCredential, {
+    //         scopes: settings.graphUserScopes
+    //     });
+        
+    //     _userClient = graph.Client.initWithMiddleware({
+    //         authProvider: authProvider
+    //     });
+    
+    // const options = {
+    //     authProvider,
+    // };
+    
+    // const client = Client.initWithMiddleware(options);
+    
+    // const mailFolder = {
+    //   displayName: 'Clutter',
+    //   isHidden: false
+    // };
+    
+    // await client.api('/me/mailFolders')
+    //     .post(mailFolder);
+
+    if (!_userClient){
+        throw new Error('Graph has not been initialised for user auth')
+    }
+
+    // create new folder
+    let folname = 'test'
+    const mailFolder = {
+        displayName: folname,
+        isHidden: false
+    }
+
+    return _userClient.api('/me/mailFolders')
+        .post(mailFolder)
+  }
+  module.exports.createNewFolderAsync = createNewFolderAsync;
+
+
+  async function moveMessageAsync(){
+    if(!_userClient){
+        throw new Error('Graph has not been initialised for user auth')
+    }
+
+    // move a message from inbox folder to test folder
+    // update the folder name afterwards when we get to know the categorising
+
+    let folname = 'test'
+    let folderId='AAMkADRhMTUwZWE3LWY5MDMtNDkwOC1iYmU2LTI1OGY0NWQ3ODI4OQAuAAAAAABKDb0Jr_LGTaiaquJ3ENDYAQD3DFw5relpQIUkHY160tSmAABm7o2cAAA='
+    const message = {
+        destinationId: folderId
+    }
+
+    // fill up..
+    let messageId = 'AAMkADRhMTUwZWE3LWY5MDMtNDkwOC1iYmU2LTI1OGY0NWQ3ODI4OQBGAAAAAABKDb0Jr_LGTaiaquJ3ENDYBwD3DFw5relpQIUkHY160tSmAAAAAAEMAAD3DFw5relpQIUkHY160tSmAABluzolAAA='
+
+    return _userClient.api(`/me/messages/${messageId}/move`)
+        .post(message)
+  }
+  module.exports.moveMessageAsync = moveMessageAsync;

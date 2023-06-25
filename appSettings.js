@@ -4,7 +4,8 @@ const settings = {
   'graphUserScopes': [
     'user.read',
     'mail.read',
-    'mail.send'
+    'mail.send',
+    'mail.readwrite'
   ]
 };
 
