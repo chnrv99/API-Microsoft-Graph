@@ -4,7 +4,6 @@ const settings = require('./appSettings');
 const graphHelper = require('./graphHelper');
 
 async function main() {
-  console.log('JavaScript Graph Tutorial');
 
   let choice = 0;
 
@@ -19,7 +18,8 @@ async function main() {
     'List my inbox',
     'Send mail',
     'Create a folder',
-    'Move a message to test folder'
+    'Move a message to test folder',
+    'Create a new event'
   ];
 
   while (choice != -1) {
@@ -49,6 +49,10 @@ async function main() {
         case 4:
             await moveMessageAsync();
             break;
+        case 5:
+          await createCalendarEventAsync();
+          break;
+
       default:
           console.log('Invalid choice! Please try again.');
         }
@@ -154,6 +158,17 @@ function initializeGraph(settings) {
     }
     catch(err){
         console.log(err)
+    }
+  }
+
+  async function createCalendarEventAsync(){
+    try{
+      const result = await graphHelper.createCalendarEventAsync();
+      console.log('Completed')
+      console.log(result)
+    }
+    catch(err){
+      console.log(err)
     }
   }
  
